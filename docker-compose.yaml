@@ -1,0 +1,23 @@
+# My-Sym-Tracker Compose File
+version: '3'
+
+services:
+  nextjs:
+    image:  my-sym-ui:latest
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./nextjs-auth:/app
+    ports:
+      - 3000:3000
+  db:
+    image:  my-sym-tracker-db:latest
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=sqlpass
+      - MYSQL_USER=my-sym-api
+      - MYSQL_PASSWORD=sqlpass
+    volumes:
+      - ./EXAMPLE:/var/lib/mysql
+    ports:
+      - 3306:3306
